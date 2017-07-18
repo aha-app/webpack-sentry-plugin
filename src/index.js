@@ -116,10 +116,10 @@ module.exports = class SentryPlugin {
       url: `${this.sentryReleaseUrl()}/`,
       method: 'POST',
       auth: {
-        bearer: this.apiKey,
+        bearer: this.apiKey
       },
       headers: {
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/json'
       },
       body: JSON.stringify(this.releaseBody),
     })
@@ -134,12 +134,12 @@ module.exports = class SentryPlugin {
       url: `${this.sentryReleaseUrl()}/${this.releaseVersion}/files/`,
       method: 'POST',
       auth: {
-        bearer: this.apiKey,
+        bearer: this.apiKey
       },
       formData: {
         file: fs.createReadStream(path),
-        name: this.filenameTransform(name),
-      },
+        name: this.filenameTransform(name)
+      }
     })
   }
 

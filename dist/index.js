@@ -14,7 +14,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var BASE_SENTRY_URL = 'https://sentry.io/api/0/projects';
+var BASE_SENTRY_URL = 'https://sentry.io/api/0';
 
 var DEFAULT_INCLUDE = /\.js$|\.map$/;
 var DEFAULT_TRANSFORM = function DEFAULT_TRANSFORM(filename) {
@@ -174,7 +174,7 @@ module.exports = function () {
   }, {
     key: 'sentryReleaseUrl',
     value: function sentryReleaseUrl() {
-      return this.baseSentryURL + '/' + this.organisationSlug + '/' + this.projectSlug + '/releases'; // eslint-disable-line max-len
+      return this.baseSentryURL + '/organizations/' + this.organisationSlug + '/releases'; // eslint-disable-line max-len
     }
   }, {
     key: 'deleteFiles',

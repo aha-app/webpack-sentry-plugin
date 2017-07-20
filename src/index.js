@@ -1,7 +1,7 @@
 import request from 'request-promise'
 import fs from 'fs'
 
-const BASE_SENTRY_URL = 'https://sentry.io/api/0/projects'
+const BASE_SENTRY_URL = 'https://sentry.io/api/0'
 
 const DEFAULT_INCLUDE = /\.js$|\.map$/
 const DEFAULT_TRANSFORM = filename => `~/${filename}`
@@ -144,7 +144,7 @@ module.exports = class SentryPlugin {
   }
 
   sentryReleaseUrl() {
-    return `${this.baseSentryURL}/${this.organizationSlug}/${this.projectSlug}/releases` // eslint-disable-line max-len
+    return `${this.baseSentryURL}/organizations/${this.organisationSlug}/releases` // eslint-disable-line max-len
   }
 
   deleteFiles(stats) {

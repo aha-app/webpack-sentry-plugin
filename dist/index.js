@@ -30,7 +30,7 @@ module.exports = function () {
     _classCallCheck(this, SentryPlugin);
 
     this.baseSentryURL = options.baseSentryURL || BASE_SENTRY_URL;
-    this.organisationSlug = options.organisation;
+    this.organizationSlug = options.organization || options.organisation;
     this.projectSlug = options.project;
     this.apiKey = options.apiKey;
 
@@ -42,6 +42,7 @@ module.exports = function () {
 
     this.filenameTransform = options.filenameTransform || DEFAULT_TRANSFORM;
     this.suppressErrors = options.suppressErrors;
+    this.suppressConflictError = options.suppressConflictError;
 
     this.deleteAfterCompile = options.deleteAfterCompile;
     this.deleteRegex = options.deleteRegex || DEFAULT_DELETE_REGEX;
@@ -88,7 +89,7 @@ module.exports = function () {
     key: 'handleErrors',
     value: function handleErrors(err, compilation, cb) {
       var errorMsg = 'Sentry Plugin: ' + err;
-      if (this.suppressErrors) {
+      if (this.suppressErrors || this.suppressConflictError && err.statusCode === 409) {
         compilation.warnings.push(errorMsg);
       } else {
         compilation.errors.push(errorMsg);
@@ -99,8 +100,8 @@ module.exports = function () {
   }, {
     key: 'ensureRequiredOptions',
     value: function ensureRequiredOptions() {
-      if (!this.organisationSlug) {
-        return new Error('Must provide organisation');
+      if (!this.organizationSlug) {
+        return new Error('Must provide organization');
       } else if (!this.projectSlug) {
         return new Error('Must provide project');
       } else if (!this.apiKey) {
